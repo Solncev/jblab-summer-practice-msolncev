@@ -5,10 +5,7 @@ package Iterator;
  */
 public class Main {
     public static void main(String[] args) {
-        RangeCollection rc = new RangeCollection(3);
-        for (int i = 0; i < 2; i++) {
-            rc.add(i);
-        }
+        RangeCollection rc = new RangeCollection(3,10);
         rc.iterator();
         System.out.println(rc.toString());
     }
