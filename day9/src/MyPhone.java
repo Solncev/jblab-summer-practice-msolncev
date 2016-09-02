@@ -1,3 +1,5 @@
+import java.lang.reflect.Proxy;
+
 /**
  * Created by Марат on 01.09.2016.
  */
@@ -21,6 +23,12 @@ public class MyPhone implements Phone {
         return new MyPhone().new PhoneBuilder();
     }
 
+    public static Phone createPhoneBuilder(Phone phone) {
+        return (Phone) (Proxy.newProxyInstance(Phone.class.getClassLoader(),
+                new Class[]{Phone.class},
+                new PhoneBuilderInvocationHandler(phone)));
+    }
+
     class PhoneBuilder extends MyPhone {
         private PhoneBuilder() {
         }
@@ -30,12 +38,12 @@ public class MyPhone implements Phone {
             return this;
         }
 
-        public PhoneBuilder setOS(String os){
+        public PhoneBuilder setOS(String os) {
             MyPhone.this.oS = os;
             return this;
         }
 
-        public MyPhone build(){
+        public MyPhone build() {
             return MyPhone.this;
         }
     }
